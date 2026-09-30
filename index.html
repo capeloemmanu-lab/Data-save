@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#16d957">
+  <meta name="description" content="DataSave — sauvegardez, retrouvez et réutilisez vos données.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <title>DataSave</title>
+</head>
+<body>
+  <div id="lockScreen" class="lock-screen">
+    <div class="lock-card">
+      <img src="logo.png" class="lock-logo" alt="DataSave">
+      <h1>DataSave</h1>
+      <p id="lockText">Entrez votre PIN pour accéder à vos données.</p>
+      <input id="pinInput" inputmode="numeric" maxlength="6" type="password" placeholder="PIN">
+      <button id="unlockBtn" class="primary">Déverrouiller</button>
+      <button id="setupPinBtn" class="text-btn">Configurer / modifier le PIN</button>
+      <small>Première utilisation : aucun PIN n'est configuré.</small>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo.png" alt="DataSave">
+        <div><strong>DataSave</strong><span>Vos données, toujours à portée de main.</span></div>
+      </div>
+      <div class="top-actions">
+        <button id="exportBtn" title="Exporter">↥</button>
+        <button id="importBtn" title="Importer">↧</button>
+        <button id="lockBtn" title="Verrouiller">🔒</button>
+        <input id="fileInput" type="file" accept=".json" hidden>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">ESPACE PERSONNEL</p>
+          <h1>Bienvenue dans <span>DataSave</span></h1>
+          <p>Enregistrez vos informations importantes, retrouvez-les rapidement et réutilisez-les quand vous en avez besoin.</p>
+        </div>
+        <button id="addTopBtn" class="primary big">＋ Nouvelle donnée</button>
+      </section>
+
+      <section class="stats">
+        <div class="stat"><b id="totalCount">0</b><span>Données</span></div>
+        <div class="stat"><b id="favCount">0</b><span>Favoris</span></div>
+        <div class="stat"><b id="catCount">0</b><span>Catégories</span></div>
+      </section>
+
+      <section class="toolbar">
+        <div class="search"><span>⌕</span><input id="searchInput" placeholder="Rechercher une donnée…"></div>
+        <select id="categoryFilter"><option value="all">Toutes les catégories</option></select>
+        <button id="favoritesFilter">☆ Favoris</button>
+      </section>
+
+      <section id="emptyState" class="empty">
+        <div>💾</div><h2>Aucune donnée enregistrée</h2>
+        <p>Créez votre première fiche pour commencer.</p>
+        <button id="emptyAddBtn" class="primary">Ajouter une donnée</button>
+      </section>
+      <section id="dataGrid" class="grid"></section>
+    </main>
+
+    <footer>DataSave • Stockage local sur cet appareil • Vos données ne quittent pas votre navigateur.</footer>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <h2 id="modalTitle">Nouvelle donnée</h2>
+      <form id="dataForm">
+        <input id="editId" type="hidden">
+        <label>Titre<input id="title" required maxlength="100" placeholder="Ex. Adresse de livraison"></label>
+        <label>Catégorie
+          <input id="category" list="categoryList" maxlength="40" placeholder="Ex. Personnel">
+          <datalist id="categoryList"></datalist>
+        </label>
+        <label>Contenu<textarea id="content" required maxlength="10000" rows="8" placeholder="Saisissez les informations à conserver…"></textarea></label>
+        <label class="check"><input id="favorite" type="checkbox"> Ajouter aux favoris</label>
+        <div class="form-actions"><button type="button" id="cancelBtn">Annuler</button><button class="primary" type="submit">Enregistrer</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
